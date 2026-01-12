@@ -42,6 +42,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       .catch(error => sendResponse({ success: false, error: error.message }));
     return true;
   }
+  
+  if (request.action === 'extractActivities') {
+    handleExtractActivities()
+      .then(result => sendResponse({ success: true, data: result }))
+      .catch(error => sendResponse({ success: false, error: error.message }));
+    return true;
+  }
 });
 
 // Handle alarm events
@@ -163,6 +170,36 @@ async function handleDeleteActivity(id) {
     return { success: true };
   } catch (error) {
     console.error('Error deleting activity:', error);
+    throw error;
+  }
+}
+
+// Extract Activities from Current Tab
+async function handleExtractActivities() {
+  try {
+    // Get the current active tab
+    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (tabs.length === 0) {
+      throw new Error('No active tab found');
+    }
+    
+    const tab = tabs[0];
+    
+    // Check if the tab is on the LMS domain
+    if (!tab.url || !tab.url.includes('lms.nibmworldwide.com')) {
+      throw new Error('Please navigate to the LMS website (lms.nibmworldwide.com)');
+    }
+    
+    // Send message to content script to extract activities
+    const response = await chrome.tabs.sendMessage(tab.id, { action: 'extractActivities' });
+    
+    if (response && response.success) {
+      return response.activities || [];
+    } else {
+      throw new Error('Failed to extract activities');
+    }
+  } catch (error) {
+    console.error('Error extracting activities:', error);
     throw error;
   }
 }
