@@ -1,0 +1,248 @@
+/* Content Script Styles for LMS Activity Manager */
+
+/* Floating Action Button */
+#lms-activity-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  z-index: 9999;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+#lms-activity-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+}
+
+#lms-activity-fab:active {
+  transform: scale(0.95);
+}
+
+/* Quick Add Dialog */
+#lms-quick-add-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+}
+
+.lms-dialog-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lms-fadeIn 0.2s ease;
+}
+
+.lms-dialog-content {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  animation: lms-slideUp 0.3s ease;
+}
+
+.lms-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.lms-dialog-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.lms-close-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #718096;
+  line-height: 1;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.lms-close-btn:hover {
+  background: #f7fafc;
+  color: #2d3748;
+}
+
+#lms-quick-add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#lms-quick-add-form input,
+#lms-quick-add-form select {
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  transition: border-color 0.2s;
+}
+
+#lms-quick-add-form input:focus,
+#lms-quick-add-form select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.lms-submit-btn {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lms-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.lms-submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Notification */
+.lms-notification {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  padding: 16px 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 10001;
+  opacity: 0;
+  transform: translateX(400px);
+  transition: all 0.3s ease;
+}
+
+.lms-notification-show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.lms-notification-success {
+  border-left: 4px solid #48bb78;
+  color: #2d3748;
+}
+
+.lms-notification-error {
+  border-left: 4px solid #f56565;
+  color: #2d3748;
+}
+
+.lms-notification-info {
+  border-left: 4px solid #667eea;
+  color: #2d3748;
+}
+
+/* Animations */
+@keyframes lms-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lms-slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Activity Highlighting */
+.lms-highlighted-activity {
+  position: relative;
+}
+
+.lms-highlighted-activity::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid #667eea;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* Quick Action Buttons on Activities */
+.lms-activity-actions {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: 8px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.activity:hover .lms-activity-actions,
+.assignment:hover .lms-activity-actions {
+  opacity: 1;
+}
+
+.lms-action-btn {
+  padding: 4px 8px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lms-action-btn:hover {
+  background: #5568d3;
+  transform: translateY(-1px);
+}
