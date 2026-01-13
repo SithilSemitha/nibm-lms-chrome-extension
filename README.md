@@ -69,16 +69,6 @@ npm run build
 * Enable **Developer mode**.
 * Click **Load unpacked** and select the `dist` folder.
 
-
-
----
-
-## 📸 Screenshots
-
-| Dashboard View | Activity Tracker | Analytics |
-| --- | --- | --- |
-| *[Image Placeholder]* | *[Image Placeholder]* | *[Image Placeholder]* |
-
 ---
 
 ## 🤝 Contributing
